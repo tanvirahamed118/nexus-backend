@@ -256,8 +256,6 @@ async function updateUser(req, res) {
 
   const id = req.params.id;
   const existUser = await UserModel.findOne({ _id: id });
-  const existemail = await UserModel.findOne({ email: email });
-  const existUsername = await UserModel.findOne({ username: username });
   const profile = req?.files?.profile[0]?.originalname.split(" ").join("-");
   const video =
     req?.files?.video &&
@@ -265,12 +263,6 @@ async function updateUser(req, res) {
   const basePath = `${req.protocol}://${req.get("host")}/public/uploads/`;
 
   try {
-    if (existUsername) {
-      return res.status(400).json({ message: "Username already exist!" });
-    }
-    if (existemail) {
-      return res.status(400).json({ message: "Email already exist!" });
-    }
     if (existUser) {
       const updateUser = {
         firstname,
