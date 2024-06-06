@@ -38,12 +38,11 @@ async function createEvent(req, res) {
     requirement,
     adminId,
   } = req.body;
-
   try {
     const findAdmin = await AdminModel.findOne({ _id: adminId });
     const file = req?.file?.originalname.split(" ").join("-");
     const basePath = `${req.protocol}://${req.get("host")}/public/uploads/`;
-
+    const eventPic = file ? `${basePath}${file}` : null;
     const newEvent = new EventModel({
       title,
       category,
@@ -54,7 +53,7 @@ async function createEvent(req, res) {
       requirement,
       adminPic: findAdmin?.adminProfile,
       adminName: findAdmin?.firstname + " " + findAdmin?.lastname,
-      thumbnail: `${basePath ? `${basePath}${file}` : "null"}`,
+      eventPic,
     });
     await newEvent.save();
     res
@@ -90,7 +89,7 @@ async function updateEvent(req, res) {
         location,
         star,
         requirement,
-        thumbnail: `${basePath ? `${basePath}${file}` : "null"}`,
+        eventPic: `${basePath ? `${basePath}${file}` : "null"}`,
       };
 
       await EventModel.findByIdAndUpdate(id, updateEvent, {

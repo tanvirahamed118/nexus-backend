@@ -8,12 +8,12 @@ const {
   deleteEvent,
 } = require("../controllers/event-controller");
 const auth = require("../middlewares/auth");
-const thumbnail = require("../middlewares/thumbnail");
+const eventPic = require("../middlewares/eventPic");
 
 router.get("/", getAllEvent);
 router.get("/:id", getSingleEvent);
-router.post("/", thumbnail, createEvent);
-router.patch("/:id", auth, thumbnail, updateEvent);
+router.post("/", eventPic, createEvent);
+router.patch("/:id", auth, eventPic, updateEvent);
 router.delete("/:id", auth, deleteEvent);
 
 module.exports = router;

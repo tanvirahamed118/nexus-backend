@@ -20,7 +20,7 @@ async function getSingleMessage(req, res) {
   const existMessage = await ContactModel.findOne({ _id: id });
   try {
     if (!existMessage) {
-      res.status(400).json({ message: "Message Not Found" });
+      res.status(400).json({ message: "Email Not Found" });
     } else {
       res.status(200).json(existMessage);
     }
@@ -100,7 +100,7 @@ async function updateMessages(req, res) {
 
       res.status(200).json({ updateMessage, message: "Update Successful" });
     } else {
-      res.status(400).json({ message: "Message Not Found!" });
+      res.status(400).json({ message: "Email Not Found!" });
     }
   } catch (error) {
     res.status(500).json(error);
@@ -114,12 +114,12 @@ async function deleteMessages(req, res) {
   try {
     if (existMessage) {
       await ContactModel.findOneAndDelete(id);
-      res.status(200).json({ message: "Account Deleted" });
+      res.status(200).json({ message: "Email Deleted" });
     } else {
-      res.status(400).json({ message: "Message Does Not Exist" });
+      res.status(400).json({ message: "Email Does Not Exist" });
     }
   } catch (error) {
-    res.status(500).json({ message: "Accoount Delete Failed!" });
+    res.status(500).json({ message: "Email Delete Failed!" });
   }
 }
 

@@ -30,6 +30,6 @@ const upload = multer({
   storage: Storage,
 });
 
-const thumbnail = upload.single("thumbnail");
+const eventPic = upload.single("eventPic");
 
-module.exports = thumbnail;
+module.exports = eventPic;

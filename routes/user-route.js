@@ -12,6 +12,7 @@ const {
   deleteUser,
   updateUser,
   updateUserStatus,
+  deleteUserByAdmin,
 } = require("../controllers/user-controller");
 const auth = require("../middlewares/auth");
 const profile = require("../middlewares/profile");
@@ -26,6 +27,7 @@ router.post("/reset/change", changePassword);
 router.patch("/:id", auth, profile, updateUser);
 router.patch("/password/:id", auth, updateUserPassword);
 router.delete("/:id", auth, deleteUser);
+router.delete("/by/:id", auth, deleteUserByAdmin);
 router.patch("/status/:id", auth, updateUserStatus);
 
 module.exports = router;

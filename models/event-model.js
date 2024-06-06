@@ -7,7 +7,7 @@ const eventSchema = mongoose.Schema(
     category: {
       type: String,
     },
-    thumbnail: {
+    eventPic: {
       type: String,
     },
     adminPic: {

@@ -54,8 +54,8 @@ async function register(req, res) {
   const status = "pending";
   const emailUser = await UserModel.findOne({ email: email });
   const usernameUser = await UserModel.findOne({ username: username });
-  const profile = req?.files.profile[0]?.originalname.split(" ").join("-");
-  const video = req?.files.video[0]?.originalname.split(" ").join("-");
+  const profile = req?.files?.profile[0]?.originalname.split(" ").join("-");
+  const video = req?.files.video[0]?.originalname?.split(" ")?.join("-");
   const basePath = `${req.protocol}://${req.get("host")}/public/uploads/`;
   try {
     if (emailUser) {
@@ -348,6 +348,23 @@ async function deleteUser(req, res) {
   }
 }
 
+// Delete User by admin
+async function deleteUserByAdmin(req, res) {
+  const id = req.params.id;
+
+  let existUser = await UserModel.findOne({ _id: id });
+  try {
+    if (existUser) {
+      await UserModel.findOneAndDelete(id);
+      res.status(200).json({ message: "Account Deleted" });
+    } else {
+      res.status(400).json({ message: "Employee Does Not Exist" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Accoount Delete Failed!" });
+  }
+}
+
 // update User status
 async function updateUserStatus(req, res) {
   const { status } = req.body;
@@ -362,7 +379,7 @@ async function updateUserStatus(req, res) {
       await UserModel.findByIdAndUpdate(id, updateUser, {
         new: true,
       });
-      res.status(200).json({ user: updateUser, message: "Account Approved" });
+      res.status(200).json({ user: updateUser, message: `Account ${status}` });
     } else {
       res.status(400).json({ message: "User Not Found" });
     }
@@ -383,4 +400,5 @@ module.exports = {
   updateUserPassword,
   deleteUser,
   updateUserStatus,
+  deleteUserByAdmin,
 };
