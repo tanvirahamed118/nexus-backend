@@ -83,7 +83,7 @@ async function deleteBrand(req, res) {
   let existBrand = await BrandModel.findOne({ _id: id });
   try {
     if (existBrand) {
-      await BrandModel.findOneAndDelete(id);
+      await BrandModel.findByIdAndDelete(id);
       res.status(200).json({ message: "Delete Successful" });
     } else {
       res.status(400).json({ message: "Data Not Found!" });

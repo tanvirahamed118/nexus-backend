@@ -109,7 +109,7 @@ async function deleteApply(req, res) {
   let existApply = await ApplyModel.findOne({ _id: id });
   try {
     if (existApply) {
-      await ApplyModel.findOneAndDelete(id);
+      await ApplyModel.findByIdAndDelete(id);
       res.status(200).json({ message: "Delete Successful" });
     } else {
       res.status(400).json({ message: "Data Not Found!" });

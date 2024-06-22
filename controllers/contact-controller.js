@@ -113,7 +113,7 @@ async function deleteMessages(req, res) {
   let existMessage = await ContactModel.findOne({ _id: id });
   try {
     if (existMessage) {
-      await ContactModel.findOneAndDelete(id);
+      await ContactModel.findByIdAndDelete(id);
       res.status(200).json({ message: "Email Deleted" });
     } else {
       res.status(400).json({ message: "Email Does Not Exist" });

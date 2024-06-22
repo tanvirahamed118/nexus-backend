@@ -154,7 +154,7 @@ async function deleteAdmin(req, res) {
   let existAdmin = await AdminModel.findOne({ _id: id });
   try {
     if (existAdmin) {
-      await AdminModel.findOneAndDelete(id);
+      await AdminModel.findByIdAndDelete(id);
       res.status(200).json({ message: "Account Deleted" });
     } else {
       res.status(400).json({ message: "Admin Does Not Exist" });

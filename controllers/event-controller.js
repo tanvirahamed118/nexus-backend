@@ -112,7 +112,7 @@ async function deleteEvent(req, res) {
   let existEvent = await EventModel.findOne({ _id: id });
   try {
     if (existEvent) {
-      await EventModel.findOneAndDelete(id);
+      await EventModel.findByIdAndDelete(id);
       res.status(200).json({ message: "Delete Successful" });
     } else {
       res.status(400).json({ message: "Data Not Found!" });
