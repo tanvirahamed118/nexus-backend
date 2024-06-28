@@ -9,10 +9,14 @@ const eventRoute = require("./routes/event-route");
 const applyRoute = require("./routes/apply-route");
 const messageRouter = require("./routes/contact-route");
 const brandRouter = require("./routes/brand-route");
+const path = require("path");
 
 // App Use Middlewares
 app.use(express.json());
-app.use("/public/uploads", express.static(__dirname + "/public/uploads"));
+app.use(
+  "/public/uploads",
+  express.static(path.join(__dirname, "public/uploads"))
+);
 app.use(
   cors({
     origin: `${process.env.CORS_URL}`,
