@@ -38,6 +38,7 @@ async function createEvent(req, res) {
     requirement,
     adminId,
   } = req.body;
+
   try {
     const findAdmin = await AdminModel.findOne({ _id: adminId });
     const file = req?.file?.originalname.split(" ").join("-");
@@ -46,11 +47,11 @@ async function createEvent(req, res) {
     const newEvent = new EventModel({
       title,
       category,
-      condition,
+      condition: [condition.split(" ")],
       description,
       location,
       star,
-      requirement,
+      requirement: [requirement.split(" ")],
       adminPic: findAdmin?.adminProfile,
       adminName: findAdmin?.firstname + " " + findAdmin?.lastname,
       eventPic,

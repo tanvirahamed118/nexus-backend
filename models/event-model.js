@@ -17,7 +17,7 @@ const eventSchema = mongoose.Schema(
       type: String,
     },
     condition: {
-      type: String,
+      type: Array,
     },
     description: {
       type: String,
@@ -29,7 +29,7 @@ const eventSchema = mongoose.Schema(
       type: String,
     },
     requirement: {
-      type: String,
+      type: Array,
     },
   },
   { timestamps: true }
