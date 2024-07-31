@@ -31,30 +31,27 @@ async function createEvent(req, res) {
   const {
     title,
     category,
-    condition,
+    conditions,
     description,
     location,
     star,
-    requirement,
+    requirements,
     adminId,
   } = req.body;
 
   try {
     const findAdmin = await AdminModel.findOne({ _id: adminId });
-    const file = req?.file?.originalname.split(" ").join("-");
-    const basePath = `${req.protocol}://${req.get("host")}/public/uploads/`;
-    const eventPic = file ? `${basePath}${file}` : null;
     const newEvent = new EventModel({
       title,
       category,
-      condition: [condition.split(" ")],
+      requirements,
       description,
       location,
       star,
-      requirement: [requirement.split(" ")],
+      conditions,
       adminPic: findAdmin?.adminProfile,
       adminName: findAdmin?.firstname + " " + findAdmin?.lastname,
-      eventPic,
+      eventPic: req?.file?.location,
     });
     await newEvent.save();
     res
@@ -71,26 +68,25 @@ async function updateEvent(req, res) {
   const {
     title,
     category,
-    condition,
+    conditions,
     description,
     location,
     star,
-    requirement,
+    requirements,
   } = req.body;
   const existEvent = await EventModel.findOne({ _id: id });
-  const file = req?.file?.originalname.split(" ").join("-");
-  const basePath = `${req.protocol}://${req.get("host")}/public/uploads/`;
+
   try {
     if (existEvent) {
       const updateEvent = {
         title,
         category,
-        condition,
+        conditions,
         description,
         location,
         star,
-        requirement,
-        eventPic: `${basePath ? `${basePath}${file}` : "null"}`,
+        requirements,
+        eventPic: req?.file?.location,
       };
 
       await EventModel.findByIdAndUpdate(id, updateEvent, {

@@ -79,15 +79,13 @@ async function updateApply(req, res) {
 // update submisssion apply
 async function updateSubmissionApply(req, res) {
   const id = req.params.id;
-  const file = req?.file?.originalname.split(" ").join("-");
-  const basePath = `${req.protocol}://${req.get("host")}/public/uploads/`;
 
   const existApply = await ApplyModel.findOne({ _id: id });
 
   try {
     if (existApply) {
       const updateApply = {
-        profile: `${basePath ? `${basePath}${file}` : "null"}`,
+        profile: req?.file?.location,
       };
       await ApplyModel.findByIdAndUpdate(id, updateApply, {
         new: true,

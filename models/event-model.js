@@ -16,8 +16,8 @@ const eventSchema = mongoose.Schema(
     adminName: {
       type: String,
     },
-    condition: {
-      type: Array,
+    conditions: {
+      type: Object,
     },
     description: {
       type: String,
@@ -28,8 +28,8 @@ const eventSchema = mongoose.Schema(
     star: {
       type: String,
     },
-    requirement: {
-      type: Array,
+    requirements: {
+      type: Object,
     },
   },
   { timestamps: true }

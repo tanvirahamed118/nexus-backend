@@ -13,6 +13,7 @@ const path = require("path");
 
 // App Use Middlewares
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(
   "/public/uploads",
   express.static(path.join(__dirname, "public/uploads"))

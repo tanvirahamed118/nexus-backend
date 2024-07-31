@@ -25,6 +25,9 @@ const upload = multer({
   }),
 });
 
-const adminProfile = upload.single("adminProfile");
+const userFiles = upload.fields([
+  { name: "video", maxCount: 5 },
+  { name: "profile", maxCount: 1 },
+]);
 
-module.exports = adminProfile;
+module.exports = userFiles;
