@@ -273,9 +273,10 @@ async function updateUser(req, res) {
         agreement,
         bio,
         status,
-        profile: req?.files?.profile[0]?.location,
-        video: req?.files.video[0]?.location,
+        profile: req?.files?.profile?.location,
+        video: req?.files.video?.location,
       };
+      console.log(req?.files?.profile?.location);
 
       await UserModel.findByIdAndUpdate(id, updateUser, {
         new: true,
@@ -315,6 +316,26 @@ async function updateUserPassword(req, res) {
       });
     } else {
       res.status(400).json({ message: "Not Found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Update Failed" });
+  }
+}
+
+// User password update
+async function updateUserDescription(req, res) {
+  console.log(req.body);
+  const { bio } = req.body;
+  const id = req.params.id;
+  const existUser = await UserModel.findOne({ _id: id });
+
+  try {
+    if (existUser) {
+      const updateUser = {
+        bio,
+      };
+      await UserModel.findByIdAndUpdate(id, updateUser, { new: true });
+      res.status(200).json({ message: "Update Successful" });
     }
   } catch (error) {
     res.status(500).json({ message: "Update Failed" });
@@ -395,4 +416,5 @@ module.exports = {
   deleteUser,
   updateUserStatus,
   deleteUserByAdmin,
+  updateUserDescription,
 };

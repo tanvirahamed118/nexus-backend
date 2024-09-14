@@ -13,6 +13,7 @@ const {
   updateUser,
   updateUserStatus,
   deleteUserByAdmin,
+  updateUserDescription,
 } = require("../controllers/user-controller");
 const auth = require("../middlewares/auth");
 const userFiles = require("../middlewares/userFiles");
@@ -29,5 +30,6 @@ router.patch("/password/:id", auth, updateUserPassword);
 router.delete("/:id", auth, deleteUser);
 router.delete("/by/:id", auth, deleteUserByAdmin);
 router.patch("/status/:id", auth, updateUserStatus);
+router.patch("/description/:id", auth, updateUserDescription);
 
 module.exports = router;

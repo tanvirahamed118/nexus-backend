@@ -92,8 +92,18 @@ async function login(req, res) {
 
 // Update admin
 async function updateAdmin(req, res) {
-  const { firstname, lastname, email, phone, Organization, description } =
-    req.body;
+  const {
+    firstname,
+    lastname,
+    email,
+    phone,
+    Organization,
+    description,
+    facebook,
+    instagram,
+    linkedin,
+    tiktok,
+  } = req.body;
   const id = req.params.id;
   const existAdmin = await AdminModel.findOne({ _id: id });
 
@@ -107,6 +117,10 @@ async function updateAdmin(req, res) {
         Organization,
         description,
         adminProfile: req?.file?.location,
+        facebook,
+        instagram,
+        linkedin,
+        tiktok,
       };
 
       await AdminModel.findByIdAndUpdate(id, UpdateAdmin, {

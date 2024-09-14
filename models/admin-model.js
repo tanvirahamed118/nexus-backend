@@ -29,6 +29,18 @@ const adminSchema = mongoose.Schema(
     description: {
       type: String,
     },
+    facebook: {
+      type: String,
+    },
+    instagram: {
+      type: String,
+    },
+    linkedin: {
+      type: String,
+    },
+    tiktok: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

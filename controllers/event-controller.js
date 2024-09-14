@@ -41,6 +41,7 @@ async function createEvent(req, res) {
 
   try {
     const findAdmin = await AdminModel.findOne({ _id: adminId });
+    console.log(findAdmin);
     const newEvent = new EventModel({
       title,
       category,
