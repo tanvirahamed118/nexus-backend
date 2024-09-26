@@ -12,8 +12,8 @@ const brandRouter = require("./routes/brand-route");
 const path = require("path");
 
 // App Use Middlewares
-app.use(express.json({ limit: "50mb" }));
-app.use(express.urlencoded({ limit: "50mb", extended: true }));
+app.use(express.json({ limit: "100mb" }));
+app.use(express.urlencoded({ limit: "100mb", extended: true }));
 app.use(
   "/public/uploads",
   express.static(path.join(__dirname, "public/uploads"))
