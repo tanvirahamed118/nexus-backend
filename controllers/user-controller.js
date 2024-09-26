@@ -78,8 +78,8 @@ async function register(req, res) {
         youtube: youtube ? youtube : "",
         snapchat: snapchat ? snapchat : "",
         facebook: facebook ? facebook : "",
-        profile: req?.files?.profile[0]?.location,
-        video: req?.files.video[0]?.location,
+        profile: req?.files?.profile?.[0]?.location,
+        video: req?.files?.video?.[0]?.location,
         status,
       });
       const token = jwt.sign(
@@ -273,10 +273,9 @@ async function updateUser(req, res) {
         agreement,
         bio,
         status,
-        profile: req?.files?.profile?.location,
-        video: req?.files.video?.location,
+        profile: req?.files?.profile?.[0]?.location,
+        video: req?.files.video?.[0]?.location,
       };
-      console.log(req?.files?.profile?.location);
 
       await UserModel.findByIdAndUpdate(id, updateUser, {
         new: true,
@@ -324,7 +323,6 @@ async function updateUserPassword(req, res) {
 
 // User password update
 async function updateUserDescription(req, res) {
-  console.log(req.body);
   const { bio } = req.body;
   const id = req.params.id;
   const existUser = await UserModel.findOne({ _id: id });

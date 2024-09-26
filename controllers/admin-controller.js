@@ -17,15 +17,20 @@ async function getAdmin(req, res) {
 // Get Single Admin
 async function getOneAdmin(req, res) {
   const id = req.params.id;
-  const existAdmin = await AdminModel.findOne({ _id: id });
+  if (!id) {
+    return res.status(400).json({ message: "Admin ID is required!" });
+  }
+
   try {
+    const existAdmin = await AdminModel.findOne({ _id: id });
+
     if (!existAdmin) {
-      res.status(400).json({ message: "Admin Not Found!" });
+      return res.status(404).json({ message: "Admin Not Found!" });
     } else {
-      res.status(200).json(existAdmin);
+      return res.status(200).json(existAdmin);
     }
   } catch (error) {
-    res.status(500).json(error);
+    return res.status(500).json({ message: "Server Error", error });
   }
 }
 
