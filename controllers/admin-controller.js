@@ -111,7 +111,8 @@ async function updateAdmin(req, res) {
   } = req.body;
   const id = req.params.id;
   const existAdmin = await AdminModel.findOne({ _id: id });
-
+  const file = req?.file?.originalname.split(" ").join("-");
+  const basePath = `${req.protocol}://${req.get("host")}/public/uploads/`;
   try {
     if (existAdmin) {
       const UpdateAdmin = {
@@ -121,7 +122,7 @@ async function updateAdmin(req, res) {
         phone,
         Organization,
         description,
-        adminProfile: req?.file?.location,
+        adminProfile: `${basePath ? `${basePath}${file}` : "null"}`,
         facebook,
         instagram,
         linkedin,

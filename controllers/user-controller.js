@@ -55,6 +55,9 @@ async function register(req, res) {
   const status = "pending";
   const emailUser = await UserModel.findOne({ email: email });
   const usernameUser = await UserModel.findOne({ username: username });
+  const profile = req?.files?.profile[0]?.originalname.split(" ").join("-");
+  const video = req?.files.video[0]?.originalname?.split(" ")?.join("-");
+  const basePath = `${req.protocol}://${req.get("host")}/public/uploads/`;
 
   try {
     if (emailUser) {
@@ -78,8 +81,8 @@ async function register(req, res) {
         youtube: youtube ? youtube : "",
         snapchat: snapchat ? snapchat : "",
         facebook: facebook ? facebook : "",
-        profile: req?.files?.profile?.[0]?.location,
-        video: req?.files?.video?.[0]?.location,
+        profile: `${basePath ? `${basePath}${profile}` : "null"}`,
+        video: `${basePath ? `${basePath}${video}` : "null"}`,
         status,
       });
       const token = jwt.sign(
@@ -255,7 +258,9 @@ async function updateUser(req, res) {
 
   const id = req.params.id;
   const existUser = await UserModel.findOne({ _id: id });
-
+  const profile = req?.files?.profile[0]?.originalname.split(" ").join("-");
+  const video = req?.files.video[0]?.originalname?.split(" ")?.join("-");
+  const basePath = `${req.protocol}://${req.get("host")}/public/uploads/`;
   try {
     if (existUser) {
       const updateUser = {
@@ -273,8 +278,8 @@ async function updateUser(req, res) {
         agreement,
         bio,
         status,
-        profile: req?.files?.profile?.[0]?.location,
-        video: req?.files.video?.[0]?.location,
+        profile: `${basePath ? `${basePath}${profile}` : "null"}`,
+        video: `${basePath ? `${basePath}${video}` : "null"}`,
       };
 
       await UserModel.findByIdAndUpdate(id, updateUser, {
